@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/campus.iml" filepath="$PROJECT_DIR$/campus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/campus-common/campus-common.iml" filepath="$PROJECT_DIR$/campus-common/campus-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/campus-dao/campus-dao.iml" filepath="$PROJECT_DIR$/campus-dao/campus-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/campus-model/campus-model.iml" filepath="$PROJECT_DIR$/campus-model/campus-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/campus-service/campus-service.iml" filepath="$PROJECT_DIR$/campus-service/campus-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/campus-web/campus-web.iml" filepath="$PROJECT_DIR$/campus-web/campus-web.iml" />
+    </modules>
+  </component>
+</project>

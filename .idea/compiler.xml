@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="campus-common" />
+        <module name="campus-dao" />
+        <module name="campus-model" />
+        <module name="campus-service" />
+        <module name="campus-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="campus" target="1.8" />
+      <module name="campus-common" target="1.8" />
+      <module name="campus-dao" target="1.8" />
+      <module name="campus-model" target="1.8" />
+      <module name="campus-service" target="1.6" />
+      <module name="campus-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

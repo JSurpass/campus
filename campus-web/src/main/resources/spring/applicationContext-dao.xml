@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	         xsi:schemaLocation="http://www.springframework.org/schema/beans
+	         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	   http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!-- 数据源，此处用的阿里巴巴的数据库连接池， init-method:spring容器初始化bean之前执行的方法，destory-method:spring容器销毁之前执行的方法 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+		<property name="initialSize" value="0"/> <!-- 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时  -->
+		<property name="minIdle" value="1"/> <!-- 最小连接池数量 -->
+		<property name="maxActive" value="20"/> <!-- 最大连接池数量 -->
+		<property name="maxWait" value="6000"/> <!-- 获取连接时最大等待时间，单位毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/> <!-- Destroy线程会检测连接的间隔时间，以testWhileIdle的判断依据 -->
+		<property name="minEvictableIdleTimeMillis" value="300000"/>
+		<property name="validationQuery" value="SELECT 'x'"/> <!-- 增加对连接池中连接的测试/验证，防止数据库认为连接已死而Web应用服务器认为连接还有效 -->
+		<property name="testWhileIdle" value="true"/> <!-- 建议配置为true，不影响性能，并且保证安全性，申请连接的时候检测 -->
+		<property name="testOnBorrow" value="false"/> <!-- 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能 -->
+		<property name="testOnReturn" value="false"/> <!-- 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能  -->
+		<property name="poolPreparedStatements" value="false"/> <!-- 是否缓存preparedStatement，也就是PSCache -->
+    </bean>
+
+	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="mapperLocations" value="classpath:mybatis/mappers/*.xml"/>
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.campus.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+	<!-- 使用声明式事务配置，可以有效规范代码 -->
+	<!-- 事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+
+
+	<!-- 通知，支持 @Transactional 标记 -->
+	<tx:annotation-driven />
+	<!-- 支持 @AspectJ 标记 -->
+	<aop:aspectj-autoproxy />
+
+	<!-- 基本事务定义,使用transactionManager作事务管理,默认get*方法的事务为readonly,其余方法按默认设置. 默认的设置请参考Spring文档事务一章. -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- REQUIRED:如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中 -->
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="insert*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<!-- SUPPORTS:支持当前事务，如果当前没有事务，就以非事务方式执行 -->
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="query*" propagation="SUPPORTS" read-only="true"/>
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 以AspectJ方式 定义 AOP -->
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(public * com.campus..*service..*Service*Impl.*(..))"
+					 advice-ref="txAdvice" />
+	</aop:config>
+
+</beans>

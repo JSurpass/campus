@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.campus.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.campus.model.entity.Goods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="catalog_id" property="catalogId" jdbcType="INTEGER"/>
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="FLOAT"/>
+    <result column="real_price" property="realPrice" jdbcType="FLOAT"/>
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="publish_time" property="publishTime" jdbcType="VARCHAR" />
+    <result column="polish_time" property="polishTime" jdbcType="VARCHAR"/>
+    <result column="comment_num" property="commentNum" jdbcType="INTEGER"/>
+    <result column="visit_num" property="visitNum" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <resultMap id="ResultMapWithBLOBs" type="com.campus.model.entity.Goods" extends="BaseResultMap" >
+  </resultMap>
+
+
+  <select id="selectByCatalogOrderByDate" resultMap="ResultMapWithBLOBs">
+    select * from goods
+    where catalog_id = #{catalogId,jdbcType=INTEGER}
+    order by polish_time DESC
+    limit #{limit,jdbcType=INTEGER}
+  </select>
+
+</mapper>
