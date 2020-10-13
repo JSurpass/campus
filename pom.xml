@@ -74,7 +74,7 @@
         <!-- jsp页面标签依赖包 -->
         <jstl.version>1.2</jstl.version>
         <!-- 测试依赖包 -->
-        <junil.version>4.12</junil.version>
+        <junil.version>4.13.1</junil.version>
 
         <servlet.verion>2.5</servlet.verion>
 
