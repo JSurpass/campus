@@ -61,7 +61,7 @@
         <!-- Apache——jdk工具类补充哥 -->
         <commons-lang.version>3.6</commons-lang.version>
         <!-- Apache——io流处理类 -->
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <!-- Apache——Bean的工具依赖包 -->
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <!-- Apache——上传文件依赖包 -->
