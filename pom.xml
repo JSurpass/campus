@@ -52,7 +52,7 @@
         <!-- alibaba——数据库连接池 -->
         <alibaba-druid.version>1.1.5</alibaba-druid.version>
         <!-- alibaba——json数据解析依赖包 -->
-        <alibaba-fastjson.version>1.2.39</alibaba-fastjson.version>
+        <alibaba-fastjson.version>1.2.83</alibaba-fastjson.version>
 
         <!-- Apache——Microsoft Office文件的读写依赖包 -->
         <apache-poi.version>3.17</apache-poi.version>
