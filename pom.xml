@@ -55,7 +55,7 @@
         <alibaba-fastjson.version>1.2.39</alibaba-fastjson.version>
 
         <!-- Apache——Microsoft Office文件的读写依赖包 -->
-        <apache-poi.version>3.17</apache-poi.version>
+        <apache-poi.version>4.1.1</apache-poi.version>
         <!-- Apache——数据库连接处 -->
         <commons-dbcp.version>1.4</commons-dbcp.version>
         <!-- Apache——jdk工具类补充哥 -->
